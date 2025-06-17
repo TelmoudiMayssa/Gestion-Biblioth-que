@@ -2,7 +2,7 @@ const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = process.env.JWT_SECRET;
-console.log("JWT_SECRET (debug):", secret); // 👈 Add this line
+console.log("JWT_SECRET (debug):", secret); 
 require('dotenv').config();
 
 
@@ -12,17 +12,17 @@ exports.register = async (req, res) => {
   try {
     const { name, surname, email, password, role, student_card_number } = req.body;
 
-    // Required field check
+    // Required el field check
     if (!name || !surname || !email || !password || !role) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Student card check if role is 'student'
+    // Student card yichouf ken el  role is 'student'
     if (role === 'student' && !student_card_number) {
       return res.status(400).json({ message: 'Student card number is required for students' });
     }
 
-    // Check if user exists
+    // Check if user mawjoud
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(409).json({ message: 'Email already in use' });
